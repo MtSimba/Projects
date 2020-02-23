@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Speech.Synthesis;
 using System.Speech.Recognition;
 using System.Diagnostics;
-
+using System.IO;
 namespace Voice_Freya
 {
     public partial class voiceFreya : Form
@@ -18,10 +18,13 @@ namespace Voice_Freya
 
         SpeechSynthesizer _voice = new SpeechSynthesizer();
 
-        Boolean wakeState = false;
+        Boolean wakeState = true;
 
         Choices _Phrases = new Choices();
-        
+
+        private string username_path = @"D:\Repo\Private_Repo\Voice_Freya\name.txt";
+
+
         public voiceFreya()
         {
             _voice.SelectVoiceByHints(VoiceGender.Female); //Decide on what voice to use
@@ -32,10 +35,11 @@ namespace Voice_Freya
 
             _Phrases.Add(new string[]
             {
-                "hello freya", "how are you?","hi freya","greetings freya","good day freya", "salutations freya", "hey freya"                                                             //level 1 - introduktion phrases
+                "hello", "how are you?","hi","greetings","good day", "salutations", "hey", "hello there",                                                //level 1 - introduktion phrases
+                "tell me a joke", "what is my name?", "what's my name?"                                                
             });                           
             _Phrases.Add(new string[] {"goodbye","bye","bye bye","farewell","good night"});                                                           //level 1 - closing phrases
-            _Phrases.Add(new string[] {"Restart", "reboot"});                                                                            //level 1 - restarting phrase                                                                
+            _Phrases.Add(new string[] {"restart", "reboot", "stop"});                                                                            //level 1 - restarting phrase                                                                
             _Phrases.Add(new string[]
             {
                 "what time is it?","what date is it?","what is the weather like?","what is the temperature outside?",                          //level 2 - time and place phrases
@@ -102,22 +106,14 @@ namespace Voice_Freya
 
         public void say(string h)
         {
-            _voice.Speak(h);
-            wakeState = false;
+            _voice.SpeakAsync(h);
             textBox2.AppendText(h + " \n\n ");
         }
 
         private void _speachRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             string r = e.Result.Text;
-
-            if (r == "hi freya" | r == "hello freya" | r == "greetings freya" | r == "Good day freya" |
-                r == "salutations freya" | r == "hey freya")
-            {
-                wakeState = true;
-            }
-
-
+            
             if (r == "wake")
             {
                 say("waking up");
@@ -132,8 +128,7 @@ namespace Voice_Freya
                 label3.Text = "state: asleep";
 
             }
-
-
+            
             if (wakeState == true)
             {
 
@@ -143,10 +138,12 @@ namespace Voice_Freya
                     restart();
                 }
 
-
-                if (r == "hi" | r == "hello" | r == "greetings" | r == "Good day") //What user says
+                if (r == "hi" | r == "hello" | r == "greetings" | r == "Good day" | r == "salutations" | r == "hey" | r == "hello there") //What user says
                 {
-                    say(" Hi "); //What Freya says
+                   if(r == "hello there")
+                       say("Ahh, general Kenobi");
+                   else
+                     say(" Hi "); //What Freya says
                 }
 
                 if (r == "how are you?") //What user says
@@ -161,7 +158,22 @@ namespace Voice_Freya
 
                 if (r == "what date is it?") //What user says
                 {
-                    say(DateTime.Now.ToString("yy-MMM-dd")); //What Freya says
+                    say(DateTime.Now.ToString("M")); //What Freya says
+                }
+
+                if (r == "what is my name?" | r == "what's my name?")
+                {
+                    say("your name is " + File.ReadAllText(username_path) + ".");
+                }
+
+                if (r == "stop")
+                {
+                    _voice.SpeakAsyncCancelAll();
+                }
+
+                if (r == "tell me a joke")
+                {
+                    say("your mama is so fat, Donald Trump used her as the border wall.");
                 }
 
                 if (r == "goodbye" | r == "bye" | r == "bye bye" | r == "farewell" | r == "good night")
@@ -170,67 +182,67 @@ namespace Voice_Freya
                     Environment.Exit(0);
                 }
 
-                if (r == "freya open google") //What user says
+                if (r == "open google") //What user says
                 {
                     say("okay");
                     Process.Start("http://google.com"); //What Freya says
                 }
 
-                if (r == "freya open Facebook") //What user says
+                if (r == "open Facebook") //What user says
                 {
                     say("okay");
                     Process.Start("http://facebook.com"); //What Freya says
                 }
 
-                if (r == "freya open youtube") //What user says
+                if (r == "open youtube") //What user says
                 {
                     say("okay");
                     Process.Start("http://youtube.com"); //What Freya says
                 }
 
-                if (r == "freya open Twitter") //What user says
+                if (r == "open Twitter") //What user says
                 {
                     say("okay");
                     Process.Start("http://twitter.com"); //What Freya says
                 }
 
-                if (r == "freya open Twitter") //What user says
+                if (r == "open Twitter") //What user says
                 {
                     say("okay");
                     Process.Start("http://twitter.com"); //What Freya says
                 }
 
-                if (r == "freya open steam")
+                if (r == "open steam") //What user says
                 {
                     say("okay");
-                    Process.Start(@"C:\Program Files (x86)\Steam\Steam.exe");
+                    Process.Start(@"C:\Program Files (x86)\Steam\Steam.exe"); // What Freya says
                 }
 
-                if (r == "freya open origin")
+                if (r == "open origin") //What user says
                 {
-                    say("okay");
-                    Process.Start(@"D:\Games\Origin\Origin.exe");
+                    say("okay"); 
+                    Process.Start(@"D:\Games\Origin\Origin.exe"); // What Freya says
                 }
 
-                if (r == "freya open battle net")
+                if (r == "open battle net") //What user says
                 {
-                    say("okay");
+                    say("okay"); 
                     Process.Start(@"D:\Games\Blizzard\Battle.net\Battle.net Launcher.exe");
                 }
 
-                if (r == "freya close battle net")
-                {
-                    say("understood.");
+                if (r == "close battle net") //What user says
+                { 
+                    say("understood."); // What Freya says
                     killProg("Battle.net");
                 }
 
-                if (r == "freya open discord")
+                if (r == "open discord") //What user says
                 {
                     say("okay");
-                    Process.Start(@"C:\Users\Victo\AppData\Local\Discord\app-0.0.305\Discord.exe");
+                    Process.Start(@"C:\Users\Victo\AppData\Local\Discord\app-0.0.305\Discord.exe"); // What Freya says
                 }
 
-                if (r == "freya close discord")
+                if (r == "close discord") //What user says
                 {
                     say("understood.");
                     killProg("Discord");
