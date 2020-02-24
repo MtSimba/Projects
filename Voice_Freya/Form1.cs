@@ -23,11 +23,11 @@ namespace Voice_Freya
             SpeechRecognitionEngine _recognition = new SpeechRecognitionEngine();
             Freya f = new Freya();
 
-            var voice = f._voice = new SpeechSynthesizer();
-            var phrases = f._Phrases = new Choices();
-            var executableLocation = f._executableLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var namePath = f._namePath = Path.Combine(executableLocation, "name.txt");
-            var exePath = f._exePath = Path.Combine(executableLocation, "Voice_Freya.exe");
+            var voice =        f._voice = new SpeechSynthesizer();
+            var phrases =             f._Phrases = new Choices();
+            var executableLocation =   f._executableLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var namePath =             f._namePath = Path.Combine(executableLocation, "name.txt");
+            var exePath =              f._exePath = Path.Combine(executableLocation, "Voice_Freya.exe");
 
             voice.SelectVoiceByHints(VoiceGender.Female); //Decide on what voice to use
 
@@ -58,7 +58,7 @@ namespace Voice_Freya
             });                                                                                           
             phrases.Add(new string[]
             {
-                "wipe memory" , "what have i told you?", "what's on your mind?","what have i told you?"                                                 //level 2 - "memory acess" phrases
+                "wipe memory", "what have i told you?", "what's on your mind?","what have i told you?"                                                 //level 2 - "memory acess" phrases
             });
 
             Grammar _grammar = new Grammar(new GrammarBuilder(phrases));

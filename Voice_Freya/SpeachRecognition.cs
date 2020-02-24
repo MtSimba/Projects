@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
+using System.Windows.Forms;
 
 namespace Voice_Freya
 {
@@ -12,16 +13,19 @@ namespace Voice_Freya
         static Freya f = new Freya();
         static Speak s = new Speak();
 
-        static string executable = f._executableLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        bool wakeState = f._wakeState = true;
-        string namePath = f._namePath = Path.Combine(executable, "name.txt");
-        string exePath = f._exePath = Path.Combine(executable, "Voice_Freya.exe");
-        string inputPath = f._inputPath = Path.Combine(executable, "Freya_Memory.txt");
-        static SpeechSynthesizer v = f._voice = new SpeechSynthesizer();
+        static string             executable = f._executableLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        bool                      wakeState = f._wakeState = true;
+        string                    namePath = f._namePath = Path.Combine(executable, "name.txt");
+        string                    exePath = f._exePath = Path.Combine(executable, "Voice_Freya.exe");
+        string                    inputPath = f._inputPath = Path.Combine(executable, "Freya_Memory.txt");
+        static SpeechSynthesizer  v = f._voice = new SpeechSynthesizer();
 
-        private readonly Speak _s = s;
-        private Freya _f = f;
+        private readonly Speak    _s = s;
+        private Freya             _f = f;
         private SpeechSynthesizer _v = v;
+
+
+        #region Speech recognition algortihm
 
 
         public void speechRecognition(object sender, SpeechRecognizedEventArgs e)
@@ -32,14 +36,12 @@ namespace Voice_Freya
             {
                 _s.say("going to sleep");
                 wakeState = false;
-                //label3.Text = "state: asleep";
             }
 
             if (r == "wake")
             {
                 _s.say("waking up");
                 wakeState = true;
-                //label3.Text = "state: awake";
             }
 
             switch (wakeState)
@@ -150,13 +152,11 @@ namespace Voice_Freya
                 {
                     file.WriteLine(r);
                 }
-                
             }
 
-
-           
-
         }
+
+        #endregion
 
         public void restart()
         {
@@ -164,6 +164,7 @@ namespace Voice_Freya
             Environment.Exit(0);
         }
 
+        /*
         public static void killProg(string str)
         {
             Process[] procs = null;
@@ -188,6 +189,6 @@ namespace Voice_Freya
                     }
                 }
             }
-        }
+        }*/
     }
 }

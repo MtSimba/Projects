@@ -10,17 +10,17 @@ namespace Voice_Freya
     {
         public SpeechSynthesizer _voice;
 
-        public Boolean _wakeState;
+        public Boolean           _wakeState;
 
-        public Choices _Phrases;
+        public Choices           _Phrases;
 
-        public string _executableLocation;
+        public string            _executableLocation;
 
-        public string _namePath;
+        public string            _namePath;
 
-        public string _exePath;
+        public string            _exePath;
 
-        public string _inputPath;
+        public string            _inputPath;
     }
 
     
