@@ -122,7 +122,7 @@ namespace Voice_Freya
                         _s.say("okay.");
                         Process.Start("http://twitter.com"); //What Freya says
                     }
-
+                    
                     if (r == "where am i?" | r == "where are we?")
                     {
                         _s.say("We're in " + System.Globalization.RegionInfo.CurrentRegion.EnglishName.ToString());
