@@ -123,17 +123,60 @@ namespace Voice_Freya
                         Process.Start("http://twitter.com"); //What Freya says
                     }
 
+                    if (r == "where am i?" | r == "where are we?")
+                    {
+                        _s.say("We're in " + System.Globalization.RegionInfo.CurrentRegion.EnglishName.ToString());
+                    }
+
+                    if (r == "do you know siri?" | r == "do you know alexa?")
+                    {
+                        _s.say("Yes i do! Some would say she's my inferior cousin");
+                    }
+
+                    if (r == "What's your favorite netflix show?" | r == "What's your favorite netflix series?")
+                    {
+                        _s.say("Personally i like the witcher series. It's so good!");
+                    }
+
+                    if (r == "Do you like men?")
+                    {
+                        _s.say("yes i do!");
+                    }
+
+                    if (r == "do you have a pussy?")
+                    {
+                        _s.say("I don't know, do i? wink wink.");
+                    }
+
+                    if (r == "do you like women?")
+                    {
+                        _s.say("sure.");
+                    }
+
+                    if (r == "Do you wanna be my girlfriend?")
+                    {
+                        _s.say("with you? no thanks.");
+                    }
+
+                    if (r == "are you my friend?" | r == "are we friends?")
+                    {
+                        _s.say("Of course, we are friends!");
+                    }
+
+                    if (r == "would you like to go on a date with me?")
+                    {
+                        _s.say("I don't know what do say to that.");
+                    }
+
                     if (r == "wipe memory") //What user says
                     {
                         _s.say("okay.");
                         File.WriteAllText(inputPath, string.Empty); //What Freya says
-                        
                     }
 
                     if (r == "what have i told you?" | r == "what's on your mind?" | r == "what have i told you?")
                     {
                         _s.say("You told me, " + File.ReadAllText(inputPath));
-
                     }
 
                     break;
