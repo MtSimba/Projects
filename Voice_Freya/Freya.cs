@@ -20,26 +20,7 @@ namespace Voice_Freya
 
         public string _exePath;
 
-        public Freya(SpeechSynthesizer voice, Boolean wakeState, Choices Phrases, string executableLocation, string namePath, string exePath)
-        {
-            _voice = voice;
-            _voice = new SpeechSynthesizer();
-
-            _wakeState = wakeState;
-
-            _Phrases = Phrases;
-            _Phrases = new Choices();
-
-            _executableLocation = executableLocation;
-            _executableLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            _namePath = namePath;
-            _namePath = Path.Combine(executableLocation, "name.txt");
-
-            _exePath = exePath;
-            _exePath = Path.Combine(executableLocation, "Voice_Freya.exe");
-
-        }
+        public string _inputPath;
     }
 
     
